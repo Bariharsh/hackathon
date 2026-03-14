@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
-import { createReceipt, listReceipts } from "@/services/receipt.service";
+import { getReceiptById, updateReceipt } from "@/services/receipt.service";
 import {
-  buildReceiptListCacheKey,
+  buildReceiptDetailCacheKey,
   getCache,
   setCache,
   invalidateReceiptCache,
@@ -10,6 +10,12 @@ import {
 import { checkRateLimit } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
+
+type RouteContext = {
+  params: Promise<{
+    id: string;
+  }>;
+};
 
 function getClientIp(req: NextRequest) {
   const forwardedFor = req.headers.get("x-forwarded-for");
@@ -20,11 +26,12 @@ function getClientIp(req: NextRequest) {
   return req.headers.get("x-real-ip") || "unknown";
 }
 
-export async function GET() {
+export async function GET(_req: NextRequest, context: RouteContext) {
   try {
-    const cacheKey = buildReceiptListCacheKey();
+    const { id } = await context.params;
+    const cacheKey = buildReceiptDetailCacheKey(id);
 
-    const cached = await getCache<any[]>(cacheKey);
+    const cached = await getCache<any>(cacheKey);
     if (cached) {
       return NextResponse.json(
         {
@@ -43,14 +50,14 @@ export async function GET() {
 
     await connectDB();
 
-    const receipts = await listReceipts();
+    const receipt = await getReceiptById(id);
 
-    await setCache(cacheKey, receipts, 60);
+    await setCache(cacheKey, receipt, 60);
 
     return NextResponse.json(
       {
         success: true,
-        data: receipts,
+        data: receipt,
         cached: false,
       },
       {
@@ -64,20 +71,21 @@ export async function GET() {
     return NextResponse.json(
       {
         success: false,
-        message: error.message || "Failed to fetch receipts.",
+        message: error.message || "Failed to fetch receipt.",
       },
-      { status: 500 }
+      { status: 404 }
     );
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function PUT(req: NextRequest, context: RouteContext) {
   try {
+    const { id } = await context.params;
     const ip = getClientIp(req);
 
     const rateLimit = await checkRateLimit({
-      key: `ratelimit:receipts:create:${ip}`,
-      limit: 20,
+      key: `ratelimit:receipts:update:${ip}`,
+      limit: 30,
       windowSeconds: 60,
     });
 
@@ -85,7 +93,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: "Too many create requests. Please try again later.",
+          message: "Too many update requests. Please try again later.",
         },
         {
           status: 429,
@@ -99,23 +107,23 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     const body = await req.json();
-    const receipt = await createReceipt(body);
+    const receipt = await updateReceipt(id, body);
 
-    await invalidateReceiptCache(receipt._id.toString());
+    await invalidateReceiptCache(id);
 
     return NextResponse.json(
       {
         success: true,
-        message: "Receipt created successfully.",
+        message: "Receipt updated successfully.",
         data: receipt,
       },
-      { status: 201 }
+      { status: 200 }
     );
   } catch (error: any) {
     return NextResponse.json(
       {
         success: false,
-        message: error.message || "Failed to create receipt.",
+        message: error.message || "Failed to update receipt.",
       },
       { status: 400 }
     );
