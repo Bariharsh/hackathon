@@ -92,7 +92,10 @@ Follow these steps to run CoreInv locally on your machine.
    Create a `.env.local` file in the root directory with the following variables:
    ```env
    MONGODB_URI=your_mongodb_connection_string
+   REDIS_URL=your_redis_connection_string
    JWT_SECRET=your_jwt_secret
+   EMAIL_USER=your_email_user
+   EMAIL_PASS=your_email_pass
    ```
 
 4. **Run the development server:**
