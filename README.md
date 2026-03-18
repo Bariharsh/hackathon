@@ -1,7 +1,7 @@
 # 📦 CoreInv - Premium Inventory & Logistics Management
 
 <div align="center">
-  <img src="images/index.png" alt="CoreInv Banner" />
+  <img src="public/images/index.png" alt="CoreInv Banner" />
 </div>
 
 > **CoreInv** is a modern, real-time, ERP-grade inventory management system built for speed, accuracy, and accountability.
@@ -50,13 +50,13 @@ Small to medium enterprises (SMEs) often rely on spreadsheets or clunky, outdate
 
 ## 📸 Screenshots & Demo
 
-👉 **[Watch the CoreInv Demo Video Here](https://drive.google.com/file/d/1UxRZisrmPTTmoX7BigNIviWCJdmVwJQV/view))** *(Replace with your link)*
+👉 **[Watch the CoreInv Demo Video Here](https://drive.google.com/file/d/1UxRZisrmPTTmoX7BigNIviWCJdmVwJQV/view)**
 
 | Dashboard Overview | Move History (Immutable Ledger) |
 | :---: | :---: |
-| *<img src="images/dashboard.png" width="400"/>* | *<img src="images/move-history.png" width="400"/>* |
+| *<img src="public/images/dashboard.png" width="400"/>* | *<img src="public/images/move-history.png" width="400"/>* |
 | **Delivery Workflow Validation** | **New Product Creation** |
-| *<img src="images/delivery-workflow.png" width="400"/>* | *<img src="images/product.png" width="400"/>* |
+| *<img src="public/images/delivery-workflow.png" width="400"/>* | *<img src="public/images/product.png" width="400"/>* |
 
 ---
 
