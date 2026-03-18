@@ -50,7 +50,7 @@ Small to medium enterprises (SMEs) often rely on spreadsheets or clunky, outdate
 
 ## 📸 Screenshots & Demo
 
-👉 **[Watch the CoreInv Demo Video Here]([https://youtube.com/...](https://drive.google.com/file/d/1UxRZisrmPTTmoX7BigNIviWCJdmVwJQV/view))** *(Replace with your link)*
+👉 **[Watch the CoreInv Demo Video Here](https://drive.google.com/file/d/1UxRZisrmPTTmoX7BigNIviWCJdmVwJQV/view))** *(Replace with your link)*
 
 | Dashboard Overview | Move History (Immutable Ledger) |
 | :---: | :---: |
