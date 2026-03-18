@@ -1,7 +1,7 @@
 # 📦 CoreInv - Premium Inventory & Logistics Management
 
 <div align="center">
-  <img src="https://via.placeholder.com/1200x300/0f172a/00c853?text=CoreInv+-+Next-Gen+Inventory+Management" alt="CoreInv Banner" />
+  <img src="images/index.png" alt="CoreInv Banner" />
 </div>
 
 > **CoreInv** is a modern, real-time, ERP-grade inventory management system built for speed, accuracy, and accountability.
@@ -50,13 +50,13 @@ Small to medium enterprises (SMEs) often rely on spreadsheets or clunky, outdate
 
 ## 📸 Screenshots & Demo
 
-👉 **[Watch the CoreInv Demo Video Here](https://youtube.com/...)** *(Replace with your link)*
+👉 **[Watch the CoreInv Demo Video Here]([https://youtube.com/...](https://drive.google.com/file/d/1UxRZisrmPTTmoX7BigNIviWCJdmVwJQV/view))** *(Replace with your link)*
 
 | Dashboard Overview | Move History (Immutable Ledger) |
 | :---: | :---: |
-| *<img src="https://via.placeholder.com/600x400/f8fafc/000000?text=Dashboard+Screenshot" width="400"/>* | *<img src="https://via.placeholder.com/600x400/f8fafc/000000?text=Ledger+Screenshot" width="400"/>* |
+| *<img src="images/dashboard.png" width="400"/>* | *<img src="images/move-history.png" width="400"/>* |
 | **Delivery Workflow Validation** | **New Product Creation** |
-| *<img src="https://via.placeholder.com/600x400/f8fafc/000000?text=Delivery+Detail+Screenshot" width="400"/>* | *<img src="https://via.placeholder.com/600x400/f8fafc/000000?text=Product+Form+Screenshot" width="400"/>* |
+| *<img src="images/delivery-workflow.png" width="400"/>* | *<img src="images/product.png" width="400"/>* |
 
 ---
 
