@@ -5,7 +5,7 @@ import Adjustment from "@/models/Adjustment";
 import StockBalance from "@/models/StockBalance";
 import StockLedger from "@/models/StockLedger";
 import Product from "@/models/product.model";
-import { Types } from "mongoose";
+import { Types, PipelineStage } from "mongoose";
 import {
   DashboardFilters,
   DashboardSourceType,
@@ -77,8 +77,8 @@ export async function getDashboardKpis(filters: DashboardFilters = {}) {
     };
   }
 
-  const stockPipeline: Record<string, unknown>[] = [];
-  const stockMatch: Record<string, unknown> = {};
+  const stockPipeline: PipelineStage[] = [];
+  const stockMatch: Record<string, any> = {};
 
   if (warehouseObjectId) {
     stockMatch.warehouseId = warehouseObjectId;

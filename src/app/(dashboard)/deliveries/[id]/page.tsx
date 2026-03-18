@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useDeliveriesStore } from "@/store/deliveriers.store"; // Fixed typo
+import { useDeliveriesStore } from "@/store/deliveriers.store"; 
 import { ArrowLeft, CheckCircle2, Loader2, Package, MapPin, Calendar, SearchCheck, Ban, AlertTriangle } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -11,33 +11,48 @@ export default function DeliveryDetailPage() {
   const { id } = useParams();
   const router = useRouter();
   
-  // Ensure checkAvailability and cancelDelivery are in your store!
   const { validateDelivery, checkAvailability, cancelDelivery } = useDeliveriesStore();
   
   const [delivery, setDelivery] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // 1. ADDED CACHE BUSTING: ?_t=${Date.now()} forces the freshest data
   const fetchDetail = async () => {
     try {
-      const res = await axios.get(`/api/deliveries/${id}`);
+      const res = await axios.get(`/api/deliveries/${id}?_t=${Date.now()}`);
       setDelivery(res.data.data);
     } catch (err) {
       toast.error("Delivery order not found.");
       router.push("/deliveries");
     } finally {
-      setLoading(false);
+      // This only turns off the initial full-screen loader
+      setLoading(false); 
     }
   };
 
-  useEffect(() => { if (id) fetchDetail(); }, [id]);
+  // 2. ADDED BACKGROUND POLLING: Silently fetches updates every 5 seconds
+  useEffect(() => { 
+    if (!id) return;
+    
+    // Initial fetch
+    fetchDetail(); 
+
+    // Real-time background sync
+    const interval = setInterval(() => {
+      fetchDetail();
+    }, 5000);
+
+    // Cleanup interval on unmount
+    return () => clearInterval(interval);
+  }, [id]);
 
   const handleAction = async (actionFn: () => Promise<any>, successMessage: string) => {
     setIsProcessing(true);
     try {
       await actionFn();
       toast.success(successMessage);
-      await fetchDetail(); // Refresh the UI with new status
+      await fetchDetail(); // Immediately refresh the UI
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Operation failed.");
     } finally {
@@ -73,7 +88,6 @@ export default function DeliveryDetailPage() {
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Action Buttons: Only show if order is active */}
           {status !== "Done" && status !== "Canceled" && (
             <>
               <button 

@@ -3,6 +3,8 @@ import { connectDB } from "@/lib/db";
 import { validateDelivery } from "@/services/delivery.service";
 import { invalidateDeliveryCache, invalidateDashboardCache, invalidateLedgerCache } from "@/lib/cache";
 import { checkRateLimit } from "@/lib/rate-limit";
+import "@/models/category.model";
+import "@/models/product.model";
 
 export const dynamic = "force-dynamic";
 

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import { getRecentActivities } from "@/services/dashboard.service";
+import { DashboardSourceType } from "@/types/dashboard.types";
+import "@/models/warehouse.model";
+import "@/models/product.model";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +19,7 @@ export async function GET(req: NextRequest) {
 
     const activities = await getRecentActivities({
       limit: safeLimit,
-      sourceType: searchParams.get("sourceType") || "",
+      sourceType: searchParams.get("sourceType") as DashboardSourceType,
       warehouseId: searchParams.get("warehouseId") || undefined,
       locationId: searchParams.get("locationId") || undefined,
       categoryId: searchParams.get("categoryId") || undefined,

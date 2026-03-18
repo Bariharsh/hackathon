@@ -4,7 +4,7 @@ import Product from "@/models/product.model";
 import { getUserFromToken } from "@/lib/auth";
 import { getCache, setCache, deleteCacheByPattern } from "@/lib/cache";
 import { NextRequest } from "next/server";
-import categoryModel from "@/models/category.model";
+import "@/models/category.model";
 
 const PRODUCTS_LIST_KEY = "products:list";
 
